@@ -1,37 +1,33 @@
-//declare variables
-float x, y, velX, velY, diam;
+float x, y, velX, velY, diam;  //declare variables
 
 void setup() {
-  //set size of canvas
-  size(800, 600);
+size(800, 600);  //set size of canvas
 
-  //initialize variables
-  x = width/2;
-  y = height/2;
-  diam = 80;
-  velX = random(-5, 5);
-  velY = random(-5, 5);
+//initialize variables
+x = width/2;
+y = height/2;
+diam = 80;
+velX = random(-5, 5);
+velY = random(-5, 5);
 }
 
 void draw() {
-  //draw background to cover previous frame
-  background(0);
+background(0);  //draw background to cover previous frame
+ellipse(x, y, diam, diam);  //draw ball
 
-  //draw ball
-  ellipse(x, y, diam, diam);
+//add velocity to position
+x += velX;
+y += velY;
 
-  //add velocity to position
-  x += velX;
-  y += velY;
-
-  //wrap the ball's position
-  if (x + diam/2 >= width) {
-    x = -diam/2;     
-  } else if (x - diam/2 <= 0) {
-    x = width + diam/2;
+//wrap the ball's position
+if(x>=width){
+   x =0;     
+  }else if(x<=0){
+    x=width;
+}
+if(y>=height){
+   y =0;
+  }else if(y<=0){
+    y=height;
   }
-  if (y + diam/2 >= height) {
-    y = -diam/2;
-  } else if (y - diam/2 <= 0) {
-    y = height + diam/2;
-  }
+}
