@@ -1,32 +1,37 @@
-float diam;  //declare variable
-PVector loc;  //replaces x and y
-PVector vel;  //replaces velocity
-PVector acc;  //replaces acceleration
+//declare variables
+float x, y, velX, velY, diam;
 
-void setup(){
-size(800,600);  //set size of canvas
-colorMode(HSB,360,100,100,100);
-noStroke();
+void setup() {
+  //set size of canvas
+  size(800, 600);
 
-//initialize variables
-diam=80;
-loc=new PVector(width/2,height/2);
-vel=PVector.random2D();
-vel.mult(0);
-acc=PVector.random2D();
-acc.mult(.01);
+  //initialize variables
+  x = width/2;
+  y = height/2;
+  diam = 80;
+  velX = random(-5, 5);
+  velY = random(-5, 5);
 }
 
-void draw(){
-fill(frameCount%360,70,80);
+void draw() {
+  //draw background to cover previous frame
+  background(0);
 
-ellipse(loc.x,loc.y,diam,diam);  //draw ball
+  //draw ball
+  ellipse(x, y, diam, diam);
 
-loc.add(vel);  //add velocity to position
+  //add velocity to position
+  x += velX;
+  y += velY;
 
-acc=PVector.random2D();
-vel.add(acc);  //add acceleration to velocity
-acc.mult(.01);
-
-vel.limit(5);  //limit velocity to avoid being unable to overcome large velocity with small acceleration
-}
+  //wrap the ball's position
+  if (x + diam/2 >= width) {
+    x = -diam/2;     
+  } else if (x - diam/2 <= 0) {
+    x = width + diam/2;
+  }
+  if (y + diam/2 >= height) {
+    y = -diam/2;
+  } else if (y - diam/2 <= 0) {
+    y = height + diam/2;
+  }
